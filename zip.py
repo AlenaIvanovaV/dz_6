@@ -46,3 +46,4 @@ def test_pdf():
         page = reader.pages[0]
         text = page.extract_text()
         assert  'Тест пдф файл создала'  in text
+        os.remove((os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/expact/test3.pdf')))
