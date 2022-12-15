@@ -12,9 +12,6 @@ arch_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/
 with zipfile.ZipFile(arch_path, 'w') as zf:
     for folder, subfolders, files in os.walk(path):
         for file in files:
-            s = print(os.path.join(folder, file))
-            f = print(os.path.join(folder, file), os.path.relpath(os.path.join(folder, file), path))
-
             zf.write(os.path.join(folder, file), os.path.relpath(os.path.join(folder, file), path),
                      compress_type=zipfile.ZIP_DEFLATED)
 
@@ -35,7 +32,7 @@ def test_xlsx():
         s = xz.extract('test2.xlsx', expact)
         workbook = load_workbook(s)
         sheet = workbook.active
-    assert (sheet.cell(row=3, column=2).value) == 16
+    assert sheet.cell(row=3, column=2).value == 16
     os.remove((os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/expact/test2.xlsx')))
 
 
@@ -45,5 +42,5 @@ def test_pdf():
         reader = PdfReader(s)
         page = reader.pages[0]
         text = page.extract_text()
-        assert  'Тест пдф файл создала'  in text
+        assert 'Тест пдф файл создала' in text
         os.remove((os.path.join(os.path.dirname(os.path.abspath(__file__)), 'resources/expact/test3.pdf')))
